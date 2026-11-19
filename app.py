@@ -97,7 +97,7 @@ with chart_col2:
   plt.tight_layout()
   st.pyplot(fig2)
 
-# صف تاني من الرسومات البيانية بأشكال مختلفة وبنفس اللون البرغندي الموحد
+
 st.markdown("---")
 chart_col3, chart_col4 = st.columns(2)
 
@@ -109,7 +109,7 @@ with chart_col3:
       .sort_values(ascending=False)
   )
 
-  # Vertical Bar Chart (عمدان رأسية)
+  
   fig3, ax3 = plt.subplots(figsize=(6, 4.5))
   bars = ax3.bar(cat_sales.index, cat_sales.values, color="#7B1E3A", width=0.55)
   ax3.set_title("Total Units Sold per Category", fontsize=11, fontweight="bold")
@@ -127,7 +127,7 @@ with chart_col4:
   )
   top_prods = prod_sales.sort_values(by="qty", ascending=True).tail(10)
 
-  # Lollipop Chart (خط + نقطة بنفس اللون البرغندي)
+  
   fig4, ax4 = plt.subplots(figsize=(6, 4.5))
   ax4.hlines(
       y=top_prods["item_name"],
