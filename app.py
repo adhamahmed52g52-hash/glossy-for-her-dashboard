@@ -4,7 +4,7 @@ import streamlit as st
 
 st.set_page_config(page_title="Glossy For Her", page_icon="💄", layout="wide")
 
-# Header
+
 st.markdown(
     """
 <div style="background-color: #7B1E3A; padding: 20px; border-radius: 10px; color: white; text-align: center;">
@@ -30,7 +30,7 @@ def load_data():
 
 sales, items, products, purchases, returns, return_items, accounts = load_data()
 
-# ==================== SIDEBAR FILTERS ====================
+
 st.sidebar.header("🔍 Control Filters")
 retail_only = st.sidebar.checkbox(
     "Retail Sales Only (Exclude Internal)", value=True
@@ -40,7 +40,7 @@ categories = ["All"] + sorted(
 )
 selected_cat = st.sidebar.selectbox("Product Category:", categories)
 
-# Merge sales items with product info
+
 sales_details = items.merge(
     products[
         ["item_code", "product_category", "total_qty", "is_out_of_stock"]
@@ -49,7 +49,7 @@ sales_details = items.merge(
     how="left",
 )
 
-# Apply Retail Filter
+
 if retail_only:
   filtered_sales = sales[sales["is_retail_sale"] == 1].copy()
   filtered_returns = returns[returns["is_retail_sale"] == 1].copy()
@@ -66,7 +66,7 @@ if selected_cat != "All":
       filtered_details["product_category"] == selected_cat
   ]
 
-# ==================== TOP EXECUTIVE KPIs ====================
+
 gross_sales = filtered_sales["final_total"].sum()
 returns_total = filtered_returns["final_total"].sum()
 net_sales = gross_sales + returns_total
@@ -90,8 +90,6 @@ k5.metric("🛒 Avg Invoice", f"{avg_order_value:,.1f} EGP")
 k6.metric("↩️ Return Rate", f"{return_rate:.2f}%")
 
 st.markdown("---")
-
-# ==================== 4 DASHBOARD TABS ====================
 tab1, tab2, tab3, tab4 = st.tabs([
     "📊 Executive & Sales Patterns",
     "🏷️ Products & Profitability",
@@ -99,7 +97,6 @@ tab1, tab2, tab3, tab4 = st.tabs([
     "📦 Inventory, Dead Stock & Restock",
 ])
 
-# -------------------- TAB 1: EXECUTIVE & SALES PATTERNS --------------------
 with tab1:
   c1, c2 = st.columns(2)
 
@@ -215,7 +212,6 @@ with tab1:
       plt.tight_layout()
       st.pyplot(fig_p)
 
-# -------------------- TAB 2: PRODUCTS & PROFITABILITY --------------------
 with tab2:
   p1, p2 = st.columns(2)
 
@@ -295,7 +291,6 @@ with tab2:
   plt.tight_layout()
   st.pyplot(fig3)
 
-# -------------------- TAB 3: CUSTOMERS & BASKET SIZE --------------------
 with tab3:
   cu1, cu2 = st.columns(2)
 
@@ -348,7 +343,6 @@ with tab3:
       plt.tight_layout()
       st.pyplot(fig_s)
 
-# -------------------- TAB 4: INVENTORY, DEAD STOCK & RESTOCK --------------------
 with tab4:
   sales_velocity = (
       filtered_details.groupby("item_code")["qty"]
