@@ -282,3 +282,5 @@ with tab2:
         filtered_details.groupby("item_code")[target_metric].sum().reset_index()
     )
     prod_prof = prod_prof.merge(
+products[["item_code", "item_name"]], on="item_code", how="left"
+    )
