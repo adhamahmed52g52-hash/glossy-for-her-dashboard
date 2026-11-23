@@ -281,4 +281,4 @@ with tab2:
     prod_prof = (
         filtered_details.groupby("item_code")[target_metric].sum().reset_index()
     )
-    prod_prof = prod_
+    prod_prof = prod_prof.merge(
